@@ -3,9 +3,10 @@ from typing import Optional
 
 from app.core.config import jwtAccessBearer, jwtRefreshBearer, settings
 from app.core.dependency import headerCredentialsDependency, jwtAccessAuthCredentialsDependency, jwtRefreshAuthCredentialsDependency
+from app.core.my_redis import RegisterRedisModel
 from app.users_app.crud import create_user, delete_user_by_id, get_user_by_id, get_user_by_username_and_password, get_user_by_username_or_email
 from app.users_app.models import UserModel
-from app.users_app.schemas import LoginSchema, RegisterRedisModel, RegisterSchema, UpdateSchema, VerifySchema
+from app.users_app.schemas import LoginSchema, RegisterSchema, UpdateSchema, VerifySchema
 from app.users_app.tasks import send_email_task
 from aredis_om import Migrator
 from fastapi import APIRouter, Depends, HTTPException, Response, status

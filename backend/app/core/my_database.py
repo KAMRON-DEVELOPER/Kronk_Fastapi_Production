@@ -1,7 +1,6 @@
 from app.core.config import settings
-from app.main import app
+from fastapi import FastAPI
 from tortoise.contrib.fastapi import register_tortoise
-from tortoise.exceptions import ConfigurationError
 
 TORTOISE_ORM = {
     "connections": {"default": settings.DATABASE_URL},
@@ -22,15 +21,10 @@ TORTOISE_ORM = {
 }
 
 
-async def database_ready() -> bool:
+async def tortoise_ready(app: FastAPI) -> bool:
     try:
-        register_tortoise(
-            app=app,
-            config=TORTOISE_ORM,
-            generate_schemas=True,
-            add_exception_handlers=True,
-        )
+        register_tortoise(app=app, config=TORTOISE_ORM, generate_schemas=True, add_exception_handlers=True)
         return True
-    except ConfigurationError as e:
-        print(f"🌋 Exception while connecting to database: {e}")
+    except Exception as e:
+        print(f"🌋 Failed in tortoise_ready: {e}")
         return False

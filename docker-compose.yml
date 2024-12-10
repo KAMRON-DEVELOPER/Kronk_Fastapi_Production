@@ -7,8 +7,7 @@ services:
     container_name: fastapi_1_container
     restart: on-failure
     #    command: [ "gunicorn", "app.main:app", "--worker-class", "uvicorn.workers.UvicornWorker", "--workers", "4", "--bind", "0.0.0.0:8000" ]
-    #    command: [ "uvicorn", "app.main:app", "--reload", "--host", "0.0.0.0", "--port", "8000" ]
-    command: supervisord -n -c /etc/supervisor/conf.d/supervisord.conf
+    command: [ "uvicorn", "app.main:app", "--reload", "--host", "0.0.0.0", "--port", "8000" ]
     env_file:
       - ./.env
     ports:
@@ -16,7 +15,7 @@ services:
     volumes:
       - ./backend:/backend
     healthcheck:
-      test: [ "CMD-SHELL", "curl --fail http://localhost:8000 || exit 1" ]
+      test: [ "CMD-SHELL", "curl --fail http://localhost:8000/health || exit 1" ]
       interval: 10s
       timeout: 10s
       retries: 3
@@ -35,10 +34,7 @@ services:
     volumes:
       - ./prometheus/prometheus.yml:/etc/prometheus/prometheus.yml
     command:
-      - '--config.file=/etc/prometheus/prometheus.yml'
-    depends_on:
-      fastapi_1:
-        condition: service_healthy
+      - "-config.file=/etc/prometheus/prometheus.yml"
 
   grafana:
     image: grafana/grafana:latest
@@ -53,26 +49,8 @@ services:
     depends_on:
       - prometheus
 
-  graylog:
-    image: graylog/graylog:3.3
-    container_name: graylog_container
-    restart: on-failure
-    env_file:
-      - ./.env
-    ports:
-      - "9000:9000" # web interface
-      - "1514:1514" # syslog TCP
-      - "1514:1514/udp" # syslog UDP
-      - "12201:12201" # GELF TCP
-      - "12201:12201/udp" # GELF UDP
-    volumes:
-      - ./volumes/graylog_storage:/var/lib/graylog/data
-    depends_on:
-      fastapi_1:
-        condition: service_healthy
-
   postgres:
-    image: postgres:bookworm
+    image: postgres:alpine
     container_name: postgres_container
     restart: always
     env_file:
@@ -88,7 +66,7 @@ services:
       retries: 3
 
   redis:
-    image: redis/redis-stack-server:latest
+    image: redis/redis-stack-server:6.2.0
     container_name: redis_container
     restart: always
     env_file:

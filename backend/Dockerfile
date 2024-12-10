@@ -11,8 +11,12 @@ ENV PYTHONUNBUFFERED=1
 
 WORKDIR /backend
 
-COPY . .
-RUN mv supervisord.conf /etc/supervisor/conf.d/supervisord.conf
+COPY ./app ./app
+COPY ./migrations ./migrations
+COPY ./google-services.json ./
+COPY ./pyproject.toml ./
+COPY ./.python-version ./
+COPY ./uv.lock ./
 
 RUN uv pip compile pyproject.toml --output-file requirements.txt
 RUN uv pip install --system --no-cache -r requirements.txt

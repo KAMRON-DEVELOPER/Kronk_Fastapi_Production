@@ -3,7 +3,7 @@ from datetime import datetime, timedelta
 from typing import Optional
 from uuid import UUID
 
-from app.core.minio_client import upload_file_to_minio
+from app.core.my_minio import upload_file_to_minio
 from app.users_app.models import CountryEnum, GenderEnum, StateOrProvinceEnum, UserModel
 from app.utility.decorator import as_form
 from bcrypt import checkpw, gensalt, hashpw

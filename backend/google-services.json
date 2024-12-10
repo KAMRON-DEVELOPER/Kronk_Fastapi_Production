@@ -1,0 +1,90 @@
+{
+  "project_info": {
+    "project_number": "973624202261",
+    "project_id": "kronk-dev-1",
+    "storage_bucket": "kronk-dev-1.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:973624202261:android:3a140e8a8d089824b3ea1c",
+        "android_client_info": {
+          "package_name": "com.example.kronk"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "973624202261-hh1sna1qbccamhdoub9vckuspbfh8hug.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.kronk",
+            "certificate_hash": "d0aba2a02d3d63ea1dd2e0a2a9bc5cbb5160691e"
+          }
+        },
+        {
+          "client_id": "973624202261-4dbgi7mljvoquuobrg0pqh9kl3ef6j6l.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDIYUJJZE-vFw5LF3gY7T_NxdyifX824eo"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "973624202261-4dbgi7mljvoquuobrg0pqh9kl3ef6j6l.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "973624202261-1ljs5j28vtrf0ihrq2cjt0e2686p1r97.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.kronk"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:973624202261:android:3fdf501276ae4e63b3ea1c",
+        "android_client_info": {
+          "package_name": "com.kronk.kronk"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "973624202261-4dbgi7mljvoquuobrg0pqh9kl3ef6j6l.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDIYUJJZE-vFw5LF3gY7T_NxdyifX824eo"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "973624202261-4dbgi7mljvoquuobrg0pqh9kl3ef6j6l.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "973624202261-1ljs5j28vtrf0ihrq2cjt0e2686p1r97.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.kronk"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

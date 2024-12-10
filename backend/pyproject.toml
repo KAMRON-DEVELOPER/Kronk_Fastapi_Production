@@ -1,0 +1,57 @@
+[project]
+name = "backend"
+version = "0.1.0"
+description = "Add your description here"
+readme = "README.md"
+requires-python = ">=3.12"
+dependencies = [
+    "aerich>=0.7.2",
+    "aioboto3>=13.2.0",
+    "aiofiles>=24.1.0",
+    "aiopytesseract>=0.14.0",
+    "aiosmtplib>=3.0.2",
+    "bcrypt>=4.2.0",
+    "celery>=5.4.0",
+    "django-environ>=0.11.2",
+    "fastapi-jwt[authlib]>=0.3.0",
+    "fastapi[standard]>=0.115.5",
+    "flower>=2.0.1",
+    "gunicorn>=23.0.0",
+    "logtail-python>=0.3.1",
+    "minio>=7.2.11",
+    "miniopy-async>=1.21.1",
+    "modern-colorthief>=0.1.6",
+    "pillow>=11.0.0",
+    "prometheus-fastapi-instrumentator>=7.0.0",
+    "pydantic-settings>=2.6.1",
+    "python-multipart>=0.0.17",
+    "redis-om>=0.3.3",
+    "stream-unzip>=0.0.99",
+    "stream-zip>=0.0.83",
+    "tortoise-orm[asyncpg]>=0.21.7",
+    "uvicorn>=0.32.0",
+]
+
+[dependency-groups]
+dev = [
+    "black>=24.10.0",
+    "ipython>=8.29.0",
+    "isort>=5.13.2",
+]
+
+[tool.pyright]
+include = ["."]
+venvPath = "./"
+venv = ".venv"
+extraPaths = [".venv", ".env", "venv", "env"]
+typeCheckingMode = "basic"
+pythonVersion = "3.12"
+
+[tool.mypy]
+mypy_path = [".venv", ".env", "venv", "env"]
+files = ["./"]
+strict = true
+
+[tool.black]
+line-length = 200
+target-version = ["py312"]

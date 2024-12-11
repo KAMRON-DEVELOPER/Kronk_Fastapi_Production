@@ -1,0 +1,2 @@
+kronk-logger: 2024-12-11 11:39:00,362 | CRITICAL | <ipython-input-8-a932c4178b9c>:1 | 46558 >>> DOCKER IS NOT WORKING
+kronk-logger: 2024-12-11 11:40:05,646 | CRITICAL | <ipython-input-10-d19063c91365>:1 | 46558 >>> JINX

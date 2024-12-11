@@ -10,23 +10,13 @@ minio_client: Minio = Minio(access_key=settings.MINIO_USER_ACCESS_KEY, secret_ke
 
 async def minio_ready() -> bool:
     try:
-        await minio_client.list_buckets()
+        is_exists_bucket = await minio_client.bucket_exists(bucket_name=settings.MINIO_BUCKET_NAME)
+        if not is_exists_bucket:
+            await minio_client.make_bucket(bucket_name=settings.MINIO_BUCKET_NAME)
         return True
     except Exception as e:
-        print(f"🌋 Failed in minio_ready: {e}")
-        return False
-
-
-async def check_if_bucket_exists():
-    try:
-        is_exists_bucket = await minio_client.bucket_exists(bucket_name=settings.MINIO_BUCKET_NAME)
-        if is_exists_bucket:
-            await minio_client.make_bucket(bucket_name=settings.MINIO_BUCKET_NAME)
-            print(f"🚧 Successfully created {settings.MINIO_BUCKET_NAME} bucket")
-        else:
-            print(f"🚧 {settings.MINIO_BUCKET_NAME} bucket already exists")
-    except Exception as e:
         print(f"🌋 Failed in check_if_bucket_exists: {e}")
+        return False
 
 
 async def generate_put_presigned_url(object_name: str) -> str:
@@ -65,9 +55,3 @@ async def upload_file_to_minio(file: UploadFile, username: str) -> str:
         return object_name
     except Exception as e:
         raise ValueError(f"🌋 Failed in upload_file_to_minio: {e}")
-
-
-if __name__ == "__main__":
-    import asyncio
-
-    asyncio.run(check_if_bucket_exists())

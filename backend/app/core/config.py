@@ -9,15 +9,21 @@ env = Env()
 BASE_DIR = os.path.dirname(p=os.path.dirname(p=os.path.dirname(p=os.path.abspath(path=__file__))))
 
 DATABASE_URL: str = env.str(var="DATABASE_URL")
+
 REDIS_URL: str = env.str(var="REDIS_URL")
+
+CELERY_BROKER_URL: str = env.str(var="CELERY_BROKER_URL")
+CELERY_RESULT_BACKEND: str = env.str(var="CELERY_RESULT_BACKEND")
+
+MINIO_USER_ACCESS_KEY: str = env.str(var="MINIO_USER_ACCESS_KEY")
+MINIO_USER_SECRET_KEY: str = env.str(var="MINIO_USER_SECRET_KEY")
+MINIO_ENDPOINT: str = env.str(var="MINIO_ENDPOINT")
+MINIO_BUCKET_NAME: str = env.str(var="MINIO_BUCKET_NAME")
 
 SECRET_KEY: str = env.str(var="SECRET_KEY")
 ALGORITHM: str = env.str(var="ALGORITHM")
 ACCESS_TOKEN_EXPIRE_IN_MINUTES: int = env.int(var="ACCESS_TOKEN_EXPIRE_IN_MINUTES")
 REFRESH_TOKEN_EXPIRE_IN_MINUTES: int = env.int(var="REFRESH_TOKEN_EXPIRE_IN_MINUTES")
-
-CELERY_BROKER_URL: str = env.str(var="CELERY_BROKER_URL")
-CELERY_RESULT_BACKEND: str = env.str(var="CELERY_RESULT_BACKEND")
 
 EMAIL_HOST: str = env.str(var="EMAIL_HOST")
 EMAIL_PORT: int = env.int(var="EMAIL_PORT")
@@ -25,19 +31,9 @@ EMAIL_HOST_USER: str = env.str(var="EMAIL_HOST_USER")
 EMAIL_HOST_PASSWORD: str = env.str(var="EMAIL_HOST_PASSWORD")
 EMAIL_USE_TLS: bool = env.bool(var="EMAIL_USE_TLS")
 
-MINIO_USER_ACCESS_KEY: str = env.str(var="MINIO_USER_ACCESS_KEY")
-MINIO_USER_SECRET_KEY: str = env.str(var="MINIO_USER_SECRET_KEY")
-MINIO_ENDPOINT: str = env.str(var="MINIO_ENDPOINT")
-MINIO_BUCKET_NAME: str = env.str(var="MINIO_BUCKET_NAME")
-MINIO_PUBLIC_URL_OR_IP: str = env.str(var="MINIO_PUBLIC_URL_OR_IP")
-
-jwtAccessBearer = JwtAccessBearer(
-    secret_key=SECRET_KEY,
-    auto_error=True,
-    algorithm=ALGORITHM,
-    access_expires_delta=timedelta(minutes=ACCESS_TOKEN_EXPIRE_IN_MINUTES),
-    refresh_expires_delta=timedelta(minutes=REFRESH_TOKEN_EXPIRE_IN_MINUTES),
-)
+access_expire_delta = timedelta(minutes=ACCESS_TOKEN_EXPIRE_IN_MINUTES)
+refresh_expire_delta = timedelta(minutes=REFRESH_TOKEN_EXPIRE_IN_MINUTES)
+jwtAccessBearer = JwtAccessBearer(secret_key=SECRET_KEY, auto_error=True, algorithm=ALGORITHM, access_expires_delta=access_expire_delta, refresh_expires_delta=refresh_expire_delta)
 jwtRefreshBearer = JwtRefreshBearer.from_other(jwtAccessBearer)
 
 # ! Messages
@@ -61,20 +57,20 @@ class Settings(BaseSettings):
     BASE_DIR: str = BASE_DIR
     DATABASE_URL: str = DATABASE_URL
     REDIS_URL: str = REDIS_URL
-    jwtAccessBearer: JwtAccessBearer = jwtAccessBearer
-    jwtRefreshBearer: JwtRefreshBearer = jwtRefreshBearer  # type: ignore
     CELERY_BROKER_URL: str = CELERY_BROKER_URL
+    CELERY_RESULT_BACKEND: str = CELERY_RESULT_BACKEND
+    MINIO_USER_ACCESS_KEY: str = MINIO_USER_ACCESS_KEY
+    MINIO_USER_SECRET_KEY: str = MINIO_USER_SECRET_KEY
+    MINIO_ENDPOINT: str = MINIO_ENDPOINT
+    MINIO_BUCKET_NAME: str = MINIO_BUCKET_NAME
     EMAIL_HOST: str = EMAIL_HOST
     EMAIL_PORT: int = EMAIL_PORT
     EMAIL_HOST_USER: str = EMAIL_HOST_USER
     EMAIL_HOST_PASSWORD: str = EMAIL_HOST_PASSWORD
     EMAIL_USE_TLS: bool = EMAIL_USE_TLS
 
-    MINIO_USER_ACCESS_KEY: str = MINIO_USER_ACCESS_KEY
-    MINIO_USER_SECRET_KEY: str = MINIO_USER_SECRET_KEY
-    MINIO_ENDPOINT: str = MINIO_ENDPOINT
-    MINIO_BUCKET_NAME: str = MINIO_BUCKET_NAME
-    MINIO_PUBLIC_URL_OR_IP: str = MINIO_PUBLIC_URL_OR_IP
+    jwtAccessBearer: JwtAccessBearer = jwtAccessBearer
+    jwtRefreshBearer: JwtRefreshBearer = jwtRefreshBearer
 
     wait_for_verification: str = wait_for_verification
     redis_om_user_creation_error: str = redis_om_user_creation_error
